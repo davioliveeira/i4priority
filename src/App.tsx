@@ -1,8 +1,12 @@
+import React from "react";
 import "./App.css";
-import LoginPage from "./pages/login";
+import { Router } from "./Router";
 
 function App() {
-  return <LoginPage />;
+  return (<React.StrictMode>
+  <Router />
+  </React.StrictMode>
+)
 }
 
 export default App;

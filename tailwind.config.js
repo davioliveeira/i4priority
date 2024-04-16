@@ -45,6 +45,15 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        cinza: '#4d4e4e',
+        verdeclaro: '#28bebe',
+        verde: '#74c26f',
+        laranja: '#f26423',
+        roxo: '#6b3a96',
+        azul: '#45abff',
+        amarelo: '#ffcc20',
+        bodybg: '#f7f7f7',
+        vermelho: 'red'
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -64,6 +73,9 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        gelion: ['Gelion_i4', 'Helvetica', 'Arial', 'sans-serif']
       },
     },
   },

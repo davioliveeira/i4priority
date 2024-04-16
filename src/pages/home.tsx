@@ -1,13 +1,10 @@
-import React from 'react'
-import './App.css'
-
-function Home() {
+export default function HomePage() {
 
   return (
-    <>
+    
       <h1>Hello Word!</h1>
-    </>
+    
   )
 }
 
-export default Home
+
