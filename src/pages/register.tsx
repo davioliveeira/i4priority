@@ -95,7 +95,6 @@ export function RegisterPage() {
             </Card>
           </div>
         </div>
-<<<<<<< HEAD
         <div className="hidden bg-muted lg:block">
           <img
             src="./src/assets/about.jpeg"
@@ -109,16 +108,3 @@ export function RegisterPage() {
     </>
   );
 }
-=======
-        <div className="mt-4 text-center text-sm">
-          Already have an account?{" "}
-          <a href="#" className="underline">
-            Sign in
-          </a>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
->>>>>>> 66dccb5e1b288ee71804f3dace38bc1514f3e09e

@@ -7,7 +7,7 @@ import LoginPage from "./pages/login";
 function App() {
   return (
     <React.StrictMode>
-      <LoginPage />
+      <Router />
     </React.StrictMode>
   );
 }

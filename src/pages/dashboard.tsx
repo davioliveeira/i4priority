@@ -16,9 +16,8 @@ import {
   ShoppingCart,
   Truck,
   Users2,
-} from "lucide-react"
-
-import { Badge } from "@/components/ui/badge"
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -26,8 +25,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -35,7 +34,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -44,16 +43,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
-} from "@/components/ui/pagination"
-import { Progress } from "@/components/ui/progress"
-import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+} from "@/components/ui/pagination";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   Table,
   TableBody,
@@ -61,18 +60,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+} from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 
 export default function DashboardPage() {
   return (
@@ -81,85 +76,65 @@ export default function DashboardPage() {
         <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
           <a
             href="#"
-            className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
+            className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-laranja text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
           >
             <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
-            <span className="sr-only">Acme Inc</span>
+            <span className="sr-only">I4pro Inc.</span>
           </a>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <a
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Home className="h-5 w-5" />
-                <span className="sr-only">Dashboard</span>
-              </a>
-            </TooltipTrigger>
-            <TooltipContent side="right">Dashboard</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <a
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                <span className="sr-only">Orders</span>
-              </a>
-            </TooltipTrigger>
-            <TooltipContent side="right">Orders</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <a
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Package className="h-5 w-5" />
-                <span className="sr-only">Products</span>
-              </a>
-            </TooltipTrigger>
-            <TooltipContent side="right">Products</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <a
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Users2 className="h-5 w-5" />
-                <span className="sr-only">Customers</span>
-              </a>
-            </TooltipTrigger>
-            <TooltipContent side="right">Customers</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <a
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <LineChart className="h-5 w-5" />
-                <span className="sr-only">Analytics</span>
-              </a>
-            </TooltipTrigger>
-            <TooltipContent side="right">Analytics</TooltipContent>
-          </Tooltip>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href="#"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                >
+                  <Home className="h-5 w-5 transition-all group-hover:scale-110" />
+                  <span className="sr-only">Início</span>
+                </a>
+              </TooltipTrigger>
+              <TooltipContent side="right">Início</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href="#"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                >
+                  <LineChart className="h-5 w-5" />
+                  <span className="sr-only">Indicadores</span>
+                </a>
+              </TooltipTrigger>
+              <TooltipContent side="right">Indicadores</TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href="#"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                >
+                  <Users2 className="h-5 w-5" />
+                  <span className="sr-only">Time</span>
+                </a>
+              </TooltipTrigger>
+              <TooltipContent side="right">Time</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <a
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Settings className="h-5 w-5" />
-                <span className="sr-only">Settings</span>
-              </a>
-            </TooltipTrigger>
-            <TooltipContent side="right">Settings</TooltipContent>
-          </Tooltip>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href="#"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                >
+                  <Settings className="h-5 w-5" />
+                  <span className="sr-only">Configurações</span>
+                </a>
+              </TooltipTrigger>
+              <TooltipContent side="right">Configurações</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </nav>
       </aside>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -175,17 +150,17 @@ export default function DashboardPage() {
               <nav className="grid gap-6 text-lg font-medium">
                 <a
                   href="#"
-                  className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
+                  className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-laranja text-lg font-semibold text-primary-foreground md:text-base"
                 >
                   <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
-                  <span className="sr-only">Acme Inc</span>
+                  <span className="sr-only">I4pro Inc</span>
                 </a>
                 <a
                   href="#"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
-                  <Home className="h-5 w-5" />
-                  Dashboard
+                  <Home className="h-5 w-5 transition-all group-hover:bg-laranja" />
+                  Início
                 </a>
                 <a
                   href="#"
@@ -206,7 +181,7 @@ export default function DashboardPage() {
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <Users2 className="h-5 w-5" />
-                  Customers
+                  Colaborador
                 </a>
                 <a
                   href="#"
@@ -222,18 +197,18 @@ export default function DashboardPage() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <a href="#">Dashboard</a>
+                  <a href="#">Início</a>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <a href="#">Orders</a>
+                  <a href="#">Filas</a>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Recent Orders</BreadcrumbPage>
+                <BreadcrumbPage>Prioridades Recentes</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -241,7 +216,7 @@ export default function DashboardPage() {
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search..."
+              placeholder="Pesquisar..."
               className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
             />
           </div>
@@ -253,7 +228,7 @@ export default function DashboardPage() {
                 className="overflow-hidden rounded-full"
               >
                 <img
-                  src="/placeholder-user.jpg"
+                  src="src/assets/placeholder-user.jpg"
                   width={36}
                   height={36}
                   alt="Avatar"
@@ -262,67 +237,101 @@ export default function DashboardPage() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuItem>Configurações</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem>Sair</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
           <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
-              <Card
-                className="sm:col-span-2" x-chunk="dashboard-05-chunk-0"
-              >
+              <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
                 <CardHeader className="pb-3">
-                  <CardTitle>Your Orders</CardTitle>
-                  <CardDescription className="max-w-lg text-balance leading-relaxed">
-                    Introducing Our Dynamic Orders Dashboard for Seamless
-                    Management and Insightful Analysis.
+                  <CardTitle className="text-verdeclaro font-sans">
+                    Gestão de Chamados
+                  </CardTitle>
+                  <CardDescription className="max-w-lg font-sans text-ellipsis text-wrap leading-relaxed w-full">
+                    Aqui você encontrará uma interface simplificada e dinâmica,
+                    projetada para proporcionar uma visão abrangente e
+                    atualizada dos chamados e das atividades da equipe. Este
+                    painel é o seu centro de comando para a gestão eficiente das
+                    demandas diárias, permitindo um rápido acesso às tarefas que
+                    requerem sua atenção imediata.
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                  <Button>Create New Order</Button>
+                  <Button className="bg-laranja hover:bg-verdeclaro transition-opacity">
+                    Criar Chamado
+                  </Button>
                 </CardFooter>
               </Card>
               <Card x-chunk="dashboard-05-chunk-1">
                 <CardHeader className="pb-2">
-                  <CardDescription>This Week</CardDescription>
-                  <CardTitle className="text-4xl">$1,329</CardTitle>
+                  <CardDescription className="text-verdeclaro font-medium">
+                    Nesse Dia
+                  </CardDescription>
+                  <CardTitle className="text-5xl">10</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    +25% from last week
+                  <div className=" text-xs text-muted-foreground">
+                    +25% desde o último dia.
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Progress value={25} aria-label="25% increase" />
+                  <div className="relative w-full h-4 bg-gray-200 rounded">
+                    <div
+                      className=" absolute h-4 bg-laranja rounded-l-full"
+                      style={{ width: `30%` }}
+                      aria-label="25% increase"
+                    ></div>
+                  </div>
                 </CardFooter>
               </Card>
               <Card x-chunk="dashboard-05-chunk-2">
                 <CardHeader className="pb-2">
-                  <CardDescription>This Month</CardDescription>
-                  <CardTitle className="text-4xl">$5,329</CardTitle>
+                <CardDescription className="text-verdeclaro font-medium">Nessa Semana</CardDescription>
+                  <CardTitle className="text-5xl">87</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
-                    +10% from last month
+                    +10% na última semana
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Progress value={12} aria-label="12% increase" />
+                  <div className="relative w-full h-4 bg-gray-200 rounded">
+                    <div
+                      className=" absolute h-4 bg-laranja rounded-l-full"
+                      style={{ width: `10%` }}
+                      aria-label="25% increase"
+                    ></div>
+                  </div>
                 </CardFooter>
               </Card>
             </div>
             <Tabs defaultValue="week">
               <div className="flex items-center">
-                <TabsList>
-                  <TabsTrigger value="week">Week</TabsTrigger>
-                  <TabsTrigger value="month">Month</TabsTrigger>
-                  <TabsTrigger value="year">Year</TabsTrigger>
+              <TabsList className="text-verdeclaro">
+                  <TabsTrigger className={(props: { selected?: boolean }) => 
+                    props.selected ? 'text-laranja' : 'text-verdeclaro'} 
+                    value="day"
+                  >
+                    Dia
+                  </TabsTrigger>
+                  <TabsTrigger className={(props: { selected?: boolean }) => 
+                    props.selected ? 'text-laranja' : 'text-verdeclaro'} 
+                    value="week"
+                  >
+                    Semana
+                  </TabsTrigger>
+                  <TabsTrigger className={(props: { selected?: boolean }) => 
+                    props.selected ? 'bg-laranja' : 'bg-verdeclaro'} 
+                    value="month"
+                  >
+                    Mês
+                  </TabsTrigger>
                 </TabsList>
                 <div className="ml-auto flex items-center gap-2">
                   <DropdownMenu>
@@ -330,10 +339,10 @@ export default function DashboardPage() {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="h-7 gap-1 text-sm"
+                        className="h-7 gap-1 text-sm bg-laranja hover:bg-verdeclaro transition-all"
                       >
-                        <ListFilter className="h-3.5 w-3.5" />
-                        <span className="sr-only sm:not-sr-only">Filter</span>
+                        <ListFilter className="h-3.5 w-3.5 text-white" />
+                        <span className="sr-only sm:not-sr-only text-white">Filtrar</span>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
@@ -353,198 +362,157 @@ export default function DashboardPage() {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="h-7 gap-1 text-sm"
-                  >
-                    <File className="h-3.5 w-3.5" />
-                    <span className="sr-only sm:not-sr-only">Export</span>
+                    className="h-7 gap-1 text-sm bg-laranja hover:bg-verdeclaro transition-all"
+                    >
+                    <File className="h-3.5 w-3.5 text-white" />
+                    <span className="sr-only sm:not-sr-only text-white">Export</span>
                   </Button>
                 </div>
               </div>
               <TabsContent value="week">
                 <Card x-chunk="dashboard-05-chunk-3">
                   <CardHeader className="px-7">
-                    <CardTitle>Orders</CardTitle>
+                    <CardTitle className="font-sans text-verdeclaro">Chamados Pendentes</CardTitle>
                     <CardDescription>
-                      Recent orders from your store.
+                      Lista de chamados recentes ordenados por prioridade.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>Customer</TableHead>
-                          <TableHead className="hidden sm:table-cell">
-                            Type
+                          <TableHead className="hidden sm:table-cell text-laranja">Responsável</TableHead>
+                          <TableHead className="hidden sm:table-cell text-laranja">
+                            Tipo
                           </TableHead>
-                          <TableHead className="hidden sm:table-cell">
+                          <TableHead className="hidden sm:table-cell text-laranja">
                             Status
                           </TableHead>
-                          <TableHead className="hidden md:table-cell">
-                            Date
+                          <TableHead className="hidden md:table-cell text-laranja">
+                            Data Final
                           </TableHead>
-                          <TableHead className="text-right">Amount</TableHead>
+                          <TableHead className="hidden text-[13.1px] md:table-cell text-laranja">
+                            N˚ Chamado
+                          </TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
+                        <TableRow>
+                          <TableCell>
+                            <div className="font-medium">Matheus Nogueira</div>
+                            <div className="hidden text-sm text-muted-foreground md:inline">
+                            matheus.silva@i4pro.com.br
+                            </div>
+                          </TableCell>
+                          <TableCell className="hidden sm:table-cell">
+                            Projeto
+                          </TableCell>
+                          <TableCell className="hidden sm:table-cell">
+                            <Badge className="text-x" variant="outline">
+                              Atrasado
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="hidden md:table-cell">
+                            01/02/2024
+                          </TableCell>
+                          <TableCell className="text-right">198765</TableCell>
+                        </TableRow>
                         <TableRow className="bg-accent">
                           <TableCell>
-                            <div className="font-medium">Liam Johnson</div>
+                            <div className="font-medium">Yago Nahas</div>
                             <div className="hidden text-sm text-muted-foreground md:inline">
-                              liam@example.com
+                            yago.garcez@i4pro.com.br
                             </div>
                           </TableCell>
                           <TableCell className="hidden sm:table-cell">
-                            Sale
+                            Suporte
                           </TableCell>
                           <TableCell className="hidden sm:table-cell">
-                            <Badge className="text-xs" variant="secondary">
-                              Fulfilled
-                            </Badge>
+                            <div className="text-xs text-nowrap">Em Andamento</div>
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
-                            2023-06-23
+                            22/02/2024
                           </TableCell>
-                          <TableCell className="text-right">$250.00</TableCell>
+                          <TableCell className="text-right">133765</TableCell>
                         </TableRow>
                         <TableRow>
                           <TableCell>
-                            <div className="font-medium">Olivia Smith</div>
+                            <div className="font-medium">Hélio Alves</div>
                             <div className="hidden text-sm text-muted-foreground md:inline">
-                              olivia@example.com
+                            helio.filho@i4pro.com.br
                             </div>
                           </TableCell>
                           <TableCell className="hidden sm:table-cell">
-                            Refund
+                            Melhorias
+                          </TableCell>
+                          <TableCell className="hidden sm:table-cell">
+                            <Badge className="text-xs" variant="secondary">
+                              Concluído
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="hidden md:table-cell">
+                            22/02/2024
+                          </TableCell>
+                          <TableCell className="text-right">156783</TableCell>
+                        </TableRow>
+                        
+                        <TableRow>
+                          <TableCell>
+                            <div className="font-medium">Amanda de Azevedo</div>
+                            <div className="hidden text-sm text-muted-foreground md:inline">
+                              amanda.azevedo@i4pro.com.br
+                            </div>
+                          </TableCell>
+                          <TableCell className="hidden sm:table-cell">
+                            Homologação
+                          </TableCell>
+                          <TableCell className="hidden sm:table-cell">
+                            <div className="text-xs text-nowrap">Em Andamento</div>
+                          </TableCell>
+                          <TableCell className="hidden md:table-cell">
+                            22/02/2024
+                          </TableCell>
+                          <TableCell className="text-right">195749</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>
+                            <div className="font-medium">Paulo Rossi</div>
+                            <div className="hidden text-sm text-muted-foreground md:inline">
+                              paulo.frias@i4pro.com.br
+                            </div>
+                          </TableCell>
+                          <TableCell className="hidden sm:table-cell">
+                            Suporte
+                          </TableCell>
+                          <TableCell className="hidden sm:table-cell">
+                            <Badge className="text-xs" variant="secondary">
+                              Concluído
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="hidden md:table-cell">
+                            05/04/2024
+                          </TableCell>
+                          <TableCell className="text-right">198765</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>
+                            <div className="font-medium">Thaís Souza</div>
+                            <div className="hidden text-sm text-muted-foreground md:inline">
+                            thais.souza@i4pro.com.br
+                            </div>
+                          </TableCell>
+                          <TableCell className="hidden sm:table-cell">
+                            Suporte
                           </TableCell>
                           <TableCell className="hidden sm:table-cell">
                             <Badge className="text-xs" variant="outline">
-                              Declined
+                              Fechado
                             </Badge>
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
-                            2023-06-24
+                            18/09/2024
                           </TableCell>
-                          <TableCell className="text-right">$150.00</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            <div className="font-medium">Noah Williams</div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              noah@example.com
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            Subscription
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <Badge className="text-xs" variant="secondary">
-                              Fulfilled
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2023-06-25
-                          </TableCell>
-                          <TableCell className="text-right">$350.00</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            <div className="font-medium">Emma Brown</div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              emma@example.com
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            Sale
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <Badge className="text-xs" variant="secondary">
-                              Fulfilled
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2023-06-26
-                          </TableCell>
-                          <TableCell className="text-right">$450.00</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            <div className="font-medium">Liam Johnson</div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              liam@example.com
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            Sale
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <Badge className="text-xs" variant="secondary">
-                              Fulfilled
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2023-06-23
-                          </TableCell>
-                          <TableCell className="text-right">$250.00</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            <div className="font-medium">Liam Johnson</div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              liam@example.com
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            Sale
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <Badge className="text-xs" variant="secondary">
-                              Fulfilled
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2023-06-23
-                          </TableCell>
-                          <TableCell className="text-right">$250.00</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            <div className="font-medium">Olivia Smith</div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              olivia@example.com
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            Refund
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <Badge className="text-xs" variant="outline">
-                              Declined
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2023-06-24
-                          </TableCell>
-                          <TableCell className="text-right">$150.00</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            <div className="font-medium">Emma Brown</div>
-                            <div className="hidden text-sm text-muted-foreground md:inline">
-                              emma@example.com
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            Sale
-                          </TableCell>
-                          <TableCell className="hidden sm:table-cell">
-                            <Badge className="text-xs" variant="secondary">
-                              Fulfilled
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="hidden md:table-cell">
-                            2023-06-26
-                          </TableCell>
-                          <TableCell className="text-right">$450.00</TableCell>
+                          <TableCell className="text-right">176543</TableCell>
                         </TableRow>
                       </TableBody>
                     </Table>
@@ -554,23 +522,21 @@ export default function DashboardPage() {
             </Tabs>
           </div>
           <div>
-            <Card
-              className="overflow-hidden" x-chunk="dashboard-05-chunk-4"
-            >
+            <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
               <CardHeader className="flex flex-row items-start bg-muted/50">
                 <div className="grid gap-0.5">
-                  <CardTitle className="group flex items-center gap-2 text-lg">
-                    Order Oe31b70H
+                  <CardTitle className="group flex items-center gap-2 text-lg text-verdeclaro">
+                    Chamado 198765
                     <Button
                       size="icon"
                       variant="outline"
                       className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
                     >
                       <Copy className="h-3 w-3" />
-                      <span className="sr-only">Copy Order ID</span>
+                      <span className="sr-only">Copiar Número do WEX</span>
                     </Button>
                   </CardTitle>
-                  <CardDescription>Date: November 23, 2023</CardDescription>
+                  <CardDescription>Data: Fevereiro 01, 2024</CardDescription>
                 </div>
                 <div className="ml-auto flex items-center gap-1">
                   <Button size="sm" variant="outline" className="h-8 gap-1">
@@ -587,120 +553,63 @@ export default function DashboardPage() {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>Export</DropdownMenuItem>
+                      <DropdownMenuItem>Editar</DropdownMenuItem>
+                      <DropdownMenuItem>Exportar</DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem>Trash</DropdownMenuItem>
+                      <DropdownMenuItem>Excluir</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
               </CardHeader>
               <CardContent className="p-6 text-sm">
                 <div className="grid gap-3">
-                  <div className="font-semibold">Order Details</div>
-                  <ul className="grid gap-3">
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">
-                        Glimmer Lamps x <span>2</span>
-                      </span>
-                      <span>$250.00</span>
-                    </li>
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">
-                        Aqua Filters x <span>1</span>
-                      </span>
-                      <span>$49.00</span>
-                    </li>
-                  </ul>
+                  <div className="font-semibold text-verdeclaro">Detalhes do Chamado</div>
+                  <div> Melhorias Financeiro - Ajustar meios de pagamento</div>
                   <Separator className="my-2" />
-                  <ul className="grid gap-3">
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Subtotal</span>
-                      <span>$299.00</span>
-                    </li>
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Shipping</span>
-                      <span>$5.00</span>
-                    </li>
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Tax</span>
-                      <span>$25.00</span>
-                    </li>
-                    <li className="flex items-center justify-between font-semibold">
-                      <span className="text-muted-foreground">Total</span>
-                      <span>$329.00</span>
-                    </li>
-                  </ul>
-                </div>
-                <Separator className="my-4" />
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="grid gap-3">
-                    <div className="font-semibold">Shipping Information</div>
-                    <address className="grid gap-0.5 not-italic text-muted-foreground">
-                      <span>Liam Johnson</span>
-                      <span>1234 Main St.</span>
-                      <span>Anytown, CA 12345</span>
-                    </address>
-                  </div>
-                  <div className="grid auto-rows-max gap-3">
-                    <div className="font-semibold">Billing Information</div>
-                    <div className="text-muted-foreground">
-                      Same as shipping address
-                    </div>
-                  </div>
+                  <div className="font-semibold text-verdeclaro">Fase Atual</div>
+                  <div>Reprova do cliente, verificar resumo</div>
                 </div>
                 <Separator className="my-4" />
                 <div className="grid gap-3">
-                  <div className="font-semibold">Customer Information</div>
+                  <div className="font-semibold text-verdeclaro">Responsável do Chamado</div>
                   <dl className="grid gap-3">
                     <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Customer</dt>
-                      <dd>Liam Johnson</dd>
+                      <dt className="text-muted-foreground">Nome</dt>
+                      <dd>Matheus Nogueira</dd>
                     </div>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Email</dt>
                       <dd>
-                        <a href="mailto:">liam@acme.com</a>
+                        <a href="mailto:">matheus.silva@i4pro.com.br</a>
                       </dd>
                     </div>
                     <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Phone</dt>
-                      <dd>
-                        <a href="tel:">+1 234 567 890</a>
-                      </dd>
+                      <dt className="text-muted-foreground">Data de Recebimento</dt>
+                      <dd>01/02/2024</dd>
                     </div>
-                  </dl>
-                </div>
-                <Separator className="my-4" />
-                <div className="grid gap-3">
-                  <div className="font-semibold">Payment Information</div>
-                  <dl className="grid gap-3">
                     <div className="flex items-center justify-between">
-                      <dt className="flex items-center gap-1 text-muted-foreground">
-                        <CreditCard className="h-4 w-4" />
-                        Visa
-                      </dt>
-                      <dd>**** **** **** 4532</dd>
+                      <dt className="text-muted-foreground">Data de Entrega</dt>
+                      <dd>01/03/2024</dd>
                     </div>
                   </dl>
                 </div>
               </CardContent>
               <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
                 <div className="text-xs text-muted-foreground">
-                  Updated <time dateTime="2023-11-23">November 23, 2023</time>
+                  Atualizado: <time dateTime="2023-11-23">Fevereiro 19, 2024</time>
                 </div>
                 <Pagination className="ml-auto mr-0 w-auto">
                   <PaginationContent>
                     <PaginationItem>
                       <Button size="icon" variant="outline" className="h-6 w-6">
                         <ChevronLeft className="h-3.5 w-3.5" />
-                        <span className="sr-only">Previous Order</span>
+                        <span className="sr-only">Previous WEX</span>
                       </Button>
                     </PaginationItem>
                     <PaginationItem>
                       <Button size="icon" variant="outline" className="h-6 w-6">
                         <ChevronRight className="h-3.5 w-3.5" />
-                        <span className="sr-only">Next Order</span>
+                        <span className="sr-only">Next WEX</span>
                       </Button>
                     </PaginationItem>
                   </PaginationContent>
@@ -711,5 +620,5 @@ export default function DashboardPage() {
         </main>
       </div>
     </div>
-  )
+  );
 }
