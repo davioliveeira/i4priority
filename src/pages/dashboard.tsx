@@ -2,7 +2,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Copy,
-  CreditCard,
   File,
   Home,
   LineChart,
@@ -50,7 +49,6 @@ import {
   PaginationContent,
   PaginationItem,
 } from "@/components/ui/pagination";
-import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -314,21 +312,15 @@ export default function DashboardPage() {
             <Tabs defaultValue="week">
               <div className="flex items-center">
               <TabsList className="text-verdeclaro">
-                  <TabsTrigger className={(props: { selected?: boolean }) => 
-                    props.selected ? 'text-laranja' : 'text-verdeclaro'} 
-                    value="day"
+                  <TabsTrigger value="day"
                   >
                     Dia
                   </TabsTrigger>
-                  <TabsTrigger className={(props: { selected?: boolean }) => 
-                    props.selected ? 'text-laranja' : 'text-verdeclaro'} 
-                    value="week"
+                  <TabsTrigger value="week"
                   >
                     Semana
                   </TabsTrigger>
-                  <TabsTrigger className={(props: { selected?: boolean }) => 
-                    props.selected ? 'bg-laranja' : 'bg-verdeclaro'} 
-                    value="month"
+                  <TabsTrigger value="month"
                   >
                     Mês
                   </TabsTrigger>

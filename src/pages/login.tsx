@@ -8,7 +8,50 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { supabase } from "@/supabase";
+import { redirect, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
+
+export async function loader() {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  if (session) return redirect('/')
+  return null
+}
+
+const errorMessagesI18nMap: Record<string, string> = {
+  'Invalid login credentials': 'Credenciais Inválidas',
+}
+
+interface LoginFormInputs {
+  email: string;
+  password: string;
+}
+
 export default function LoginPage() {
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [error, setError] = useState('')
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+
+    setError('')
+    setStatus('loading')
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+    if (!error) return navigate('/')
+    setStatus('error')
+    setError(errorMessagesI18nMap[error.message] ?? 'Algo inesperado aconteceu. Tente novamente')
+  }
+
   return (
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
       <div className="flex items-center justify-center py-12">
@@ -22,44 +65,46 @@ export default function LoginPage() {
                 I4pro Priority
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="email" className="text-verdeclaro">
-                    Email
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="seuemail@i4pro.com.br"
-                    required
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <div className="flex items-center">
-                    <Label htmlFor="password" className="text-verdeclaro">
-                      Senha
+            <form onSubmit={handleSubmit} noValidate>
+              <CardContent>
+                <div className="grid gap-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="email" className="text-verdeclaro">
+                      Email
                     </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="seuemail@i4pro.com.br"
+                      value={email}
+                      onChange={(event) => setEmail(event.currentTarget.value)}
+                    />
                   </div>
-                  <Input id="password" type="password" required />
+                  <div className="grid gap-2">
+                    <div className="flex items-center">
+                      <Label htmlFor="password" className="text-verdeclaro">
+                        Senha
+                      </Label>
+                    </div>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="Sua Senha"
+                      value={password}
+                      onChange={(event) => setPassword(event.currentTarget.value)}
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    className="w-full bg-laranja hover:bg-verdeclaro"
+                    disabled={status === 'loading'}
+                  >
+                    {status === 'loading' ? <Spinner /> : 'Entrar'}
+                  </Button>
+                  {error && <div className="text-sm text-red-500 text-center w-full">{error}</div>}
                 </div>
-                <Button
-                  type="submit"
-                  className="w-full bg-laranja hover:bg-verdeclaro"
-                >
-                  Entrar
-                </Button>
-                <Button variant="outline" className="w-full hover:border-verdeclaro hover:text-verdeclaro text-laranja font-sans border-laranja">
-                  Login com Google
-                </Button>
-              </div>
-              <div className="mt-4 text-center text-sm">
-                Não possui uma conta?{" "}
-                <a href="/register" className="underline text-verdeclaro hover:text-laranja">
-                  Inscreva-se
-                </a>
-              </div>
-            </CardContent>
+              </CardContent>
+            </form>
           </Card>
         </div>
       </div>
@@ -75,4 +120,3 @@ export default function LoginPage() {
     </div>
   );
 }
-

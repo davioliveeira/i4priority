@@ -8,8 +8,70 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Link,
+  LoaderFunctionArgs,
+  json,
+  redirect,
+  useLoaderData,
+  useNavigate,
+} from 'react-router-dom'
+import { supabase } from '../supabase'
+import type { SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from "react";
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const { data: { session } } = await supabase.auth.getSession();
+  return session ? redirect('/') : redirect('/login');
+}
+
+const emailDomain = '@i4pro.com.br';
+const registerSchema = z
+  .object({
+    name: z.string().min(1, 'Nome é obrigatório.'),
+    lastName: z.string().min(1, 'Sobrenome é obrigatório.'),
+    email: z
+      .string()
+      .min(1, 'Email é obrigatório.')
+      .email('Por favor, preencha um endereço de e-mail válido.')
+      .regex(new RegExp(`^[^@\\s]+@i4pro\\.com\\.br$`), `O e-mail deve ser do domínio ${emailDomain}.`),
+    password: z.string().min(8, 'Senha deve conter pelo menos 8 caracteres'),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'As senhas devem ser iguais.',
+    path: ['confirmPassword'],
+  })
+
+type FormValues = z.infer<typeof registerSchema>
 
 export function RegisterPage() {
+  const { data } = useLoaderData() as { data: any }
+  const navigate = useNavigate()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: { email: data.email },
+  })
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+
+  const onSubmit: SubmitHandler<FormValues> = async (formData) => {
+    setStatus('loading')
+    const { confirmPassword: _, email, password } = formData
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      })
+    if (error) return setStatus('error')
+    navigate(`/${data.features[0]}`)
+  }
+
   return (
     <>
       <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
@@ -24,6 +86,7 @@ export function RegisterPage() {
                   Insira suas informações para criar uma conta
                 </CardDescription>
               </CardHeader>
+              <form onSubmit={handleSubmit(onSubmit)}>
               <CardContent>
                 <div className="grid gap-4">
                   <div className="grid grid-cols-2 gap-4">
@@ -34,7 +97,8 @@ export function RegisterPage() {
                       >
                         Nome
                       </Label>
-                      <Input id="first-name" placeholder="Rafael" required />
+                      <Input id="first-name" placeholder="Rafael" autoComplete="given-name" {...register('name')} />
+                      <span className="text-xs text-red-500">{errors.name?.message}</span>
                     </div>
                     <div className="grid gap-2">
                       <Label
@@ -43,7 +107,8 @@ export function RegisterPage() {
                       >
                         Sobrenome
                       </Label>
-                      <Input id="last-name" placeholder="Inácio" required />
+                      <Input id="last-name" placeholder="Inácio"  autoCorrect="family-name" {...register('lastName')} />
+                      <span className="text-xs text-red-500">{errors.lastName?.message}</span>
                     </div>
                   </div>
                   <div className="grid gap-2">
@@ -54,7 +119,8 @@ export function RegisterPage() {
                       id="email"
                       type="email"
                       placeholder="seuemail@i4pro.com.br"
-                      required
+                      readOnly 
+                      {...register('email')}
                     />
                   </div>
                   <div className="grid gap-2">
@@ -64,7 +130,8 @@ export function RegisterPage() {
                     >
                       Senha
                     </Label>
-                    <Input id="password" type="password" />
+                    <Input id="password" type="password" placeholder="Senha" {...register('password')} />
+                    <span className="text-xs text-red-500">{errors.password?.message}</span>
                   </div>
                   <div className="grid gap-2">
                     <Label
@@ -73,7 +140,8 @@ export function RegisterPage() {
                     >
                       Confirmar Senha
                     </Label>
-                    <Input id="confirm-password" type="password" />
+                    <Input type="password" placeholder="Confirme Senha" {...register('confirmPassword')}/>
+                    <span className="text-xs text-red-500">{errors.confirmPassword?.message}</span>
                   </div>
                   <Button
                     type="submit"
@@ -85,13 +153,14 @@ export function RegisterPage() {
                 <div className="mt-4 text-center text-sm">
                   Já possui uma conta?{" "}
                   <a
-                    href="#"
+                    href="/login"
                     className="underline text-verdeclaro hover:text-laranja"
                   >
                     Entrar
                   </a>
                 </div>
               </CardContent>
+              </form>
             </Card>
           </div>
         </div>
