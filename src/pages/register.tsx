@@ -22,10 +22,11 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { data: { session } } = await supabase.auth.getSession();
-  return session ? redirect('/') : redirect('/login');
+  return session ? redirect('/') : null;
 }
 
 const emailDomain = '@i4pro.com.br';
@@ -48,8 +49,7 @@ const registerSchema = z
 
 type FormValues = z.infer<typeof registerSchema>
 
-export function RegisterPage() {
-  const { data } = useLoaderData() as { data: any }
+export default function RegisterPage() {
   const navigate = useNavigate()
   const {
     register,
@@ -57,8 +57,8 @@ export function RegisterPage() {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(registerSchema),
-    defaultValues: { email: data.email },
   })
+  console.log(errors)
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   const onSubmit: SubmitHandler<FormValues> = async (formData) => {
@@ -68,8 +68,9 @@ export function RegisterPage() {
       email,
       password,
       })
+    console.log(error)
     if (error) return setStatus('error')
-    navigate(`/${data.features[0]}`)
+    navigate(`/login`)
   }
 
   return (
@@ -118,8 +119,7 @@ export function RegisterPage() {
                     <Input
                       id="email"
                       type="email"
-                      placeholder="seuemail@i4pro.com.br"
-                      readOnly 
+                      placeholder="seuemail@i4pro.com.br" 
                       {...register('email')}
                     />
                   </div>
@@ -148,6 +148,13 @@ export function RegisterPage() {
                     className="w-full bg-laranja hover:bg-verdeclaro"
                   >
                     Criar Conta
+                  </Button>
+                  <Button
+                    type="submit"
+                    className="w-full bg-indigo-500 hover:bg-indigo-600"
+                    disabled={status === 'loading'}
+                  >
+                    {status === 'loading' ? <Spinner /> : 'Criar conta'}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
