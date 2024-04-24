@@ -9,11 +9,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Link,
   LoaderFunctionArgs,
-  json,
   redirect,
-  useLoaderData,
   useNavigate,
 } from 'react-router-dom'
 import { supabase } from '../supabase'
@@ -24,7 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({  }: LoaderFunctionArgs) {
   const { data: { session } } = await supabase.auth.getSession();
   return session ? redirect('/') : null;
 }

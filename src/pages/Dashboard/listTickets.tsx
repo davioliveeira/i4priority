@@ -39,8 +39,7 @@ import { supabase } from "@/supabase";
 import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-//@ts-expect-error
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({  }: LoaderFunctionArgs) {
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -187,7 +186,7 @@ const columns: (ColumnDef<Ticket> & { headerText?: string })[] = [
     header: () => <div className="text-verdeclaro">Ações</div>,
     headerText: "Ações", // Texto adicional para usar no Select
     //@ts-ignore
-    cell: ({ row }) => {
+    cell: () => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -221,8 +220,7 @@ export type Ticket = {
 };
 
 export default function ListTicketPage() {
-  //@ts-ignore
-  const info = useLoaderData() as any;
+  // const info = useLoaderData() as any;
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
