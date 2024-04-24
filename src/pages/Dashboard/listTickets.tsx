@@ -279,7 +279,8 @@ export default function ListTicketPage() {
       rowSelection,
     },
   });
-  console.log(info[0]);
+  
+        
   return (
     <div className="w-full">
       <Card className="w-full justify-center">
