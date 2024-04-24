@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import * as React from "react";
 import {
   ColumnDef,
@@ -21,7 +16,7 @@ import { ChevronDown, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -44,17 +39,20 @@ import { supabase } from "@/supabase";
 import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-
 export async function loader({ request }: LoaderFunctionArgs) {
-  const { data: { session } } = await supabase.auth.getSession();
-  if(session){
-    const { data, error } = await supabase.from('profiles').select().eq('id', session.user.id)
-    if(error) throw new Error(error.message)
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (session) {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select()
+      .eq("id", session.user.id);
+    if (error) throw new Error(error.message);
     return data;
   }
-  return null; 
+  return null;
 }
-
 
 const data: Ticket[] = [
   {
@@ -118,8 +116,13 @@ const columns: (ColumnDef<Ticket> & { headerText?: string })[] = [
     id: "select",
     header: ({ table }) => (
       <Checkbox
-        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
-        onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value: any) =>
+          table.toggleAllPageRowsSelected(!!value)
+        }
         aria-label="Select all"
       />
     ),
@@ -139,7 +142,9 @@ const columns: (ColumnDef<Ticket> & { headerText?: string })[] = [
     accessorKey: "status",
     header: () => <div className="text-verdeclaro">Status</div>,
     headerText: "Status", // Texto adicional para usar no Select
-    cell: ({ row }) => <div className="capitalize">{row.getValue("status")}</div>,
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("status")}</div>
+    ),
   },
   {
     id: "responsible",
@@ -200,7 +205,7 @@ const columns: (ColumnDef<Ticket> & { headerText?: string })[] = [
     },
     enableSorting: false,
     enableHiding: false,
-  }
+  },
 ];
 
 export type Ticket = {
@@ -214,39 +219,47 @@ export type Ticket = {
 };
 
 export default function ListTicketPage() {
-  const info = useLoaderData() as any 
+  const info = useLoaderData() as any;
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
-    const [selectedColumn, setSelectedColumn] = useState<string>("status"); // Iniciar com uma coluna válida
-    const [filterValue, setFilterValue] = useState<string>("");
-    const [rowSelection, setRowSelection] = useState({});  // Adicione esta linha
-    useEffect(() => {
-      console.log("Selected column updated to:", selectedColumn);
-      // Aplica o filtro com o novo valor de coluna selecionada
-      setColumnFilters([{ id: selectedColumn.trim(), value: filterValue }]);
+  const [selectedColumn, setSelectedColumn] = useState<string>("status"); // Iniciar com uma coluna válida
+  const [selectedColumnHeaderText, setSelectedColumnHeaderText] = useState("Status");
+  const [filterValue, setFilterValue] = useState<string>("");
+  const [rowSelection, setRowSelection] = useState({}); // Adicione esta linha
+  useEffect(() => {
+    console.log("Selected column updated to:", selectedColumn);
+    // Aplica o filtro com o novo valor de coluna selecionada
+    setColumnFilters([{ id: selectedColumn.trim(), value: filterValue }]);
   }, [selectedColumn]);
+
+  const handleSelectChange = (columnId: string) => {
+    console.log("Attempting to change column to:", columnId);
+    setSelectedColumn(prev => {
+      if (prev === columnId) {
+        console.log("Same column selected, forcing update");
+        return columnId + ' '; // pequena alteração para forçar a re-renderização
+      }
+      return columnId;
+    });
   
-  
-    const handleSelectChange = (columnId: string) => {
-      console.log("Attempting to change column to:", columnId);
-      setSelectedColumn(prev => {
-          if (prev === columnId) {
-              console.log("Same column selected, forcing update");
-              return columnId + ' '; // pequena alteração para forçar a re-renderização
-          }
-          return columnId;
-      });
+    // Encontrar o texto do cabeçalho para o ID da coluna selecionada
+    const column = columns.find(c => c.id === columnId);
+    if (column) {
+      setSelectedColumnHeaderText(column.headerText || "Unnamed Column");
+    } else {
+      setSelectedColumnHeaderText("Select a column"); // Se não encontrar, usar um placeholder genérico
+    }
   };
-  
-    const handleFilterChange = (value: string) => {
-      console.log("Filtering by:", selectedColumn, "with value:", value);
-      setFilterValue(value);
-      setColumnFilters([{ id: selectedColumn, value }]);
-    };
+
+  const handleFilterChange = (value: string) => {
+    console.log("Filtering by:", selectedColumn, "with value:", value);
+    setFilterValue(value);
+    setColumnFilters([{ id: selectedColumn, value }]);
+  };
 
   const table = useReactTable({
     data,
@@ -266,33 +279,54 @@ export default function ListTicketPage() {
       rowSelection,
     },
   });
-
+  console.log(info[0]);
   return (
     <div className="w-full">
       <Card className="w-full justify-center">
         <CardHeader className="px-7">
-          <CardTitle className="text-verdeclaro">Minha Lista de Prioridade</CardTitle>
-          <div className="bg-red">teste{info[0].role}</div>
+          <CardTitle className="text-verdeclaro">
+            Minha Lista de Prioridade
+          </CardTitle>
+          <CardDescription>
+            Olá
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="w-full">
             <div className="flex items-center py-4">
-            <Select>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select Column" />
-              </SelectTrigger>
-              <SelectContent>
-                {columns.map((column) => (
-                  <SelectItem key={column.id} value={(column.id||"")} onSelect={() => handleSelectChange((column.id||""))}>
-                    {column.headerText || "Unnamed Column"}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Input placeholder={`Filter by ${selectedColumn}...`} value={filterValue} onChange={e => handleFilterChange(e.target.value)} className="max-w-sm ml-4" />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto border-laranja text-laranja hover:text-verdeclaro hover:border-verdeclaro">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="border-laranja text-laranja hover:text-verdeclaro hover:border-verdeclaro"
+                  >
+                    <ChevronDown className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {columns.map((column) => (
+                    <DropdownMenuItem
+                      key={column.id}
+                      onSelect={() => handleSelectChange(column.id || "")}
+                    >
+                      {column.headerText || "Unnamed Column"}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <Input
+                placeholder={`Filtrando por ${selectedColumnHeaderText}...`}
+                value={filterValue}
+                onChange={(e) => handleFilterChange(e.target.value)}
+                className="max-w-sm ml-4 border-laranja focus:border-verdeclaro focus:placeholder:text-verdeclaro text-verdeclaro placeholder:text-laranja"
+              />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="ml-auto border-laranja text-laranja hover:text-verdeclaro hover:border-verdeclaro"
+                  >
                     Filtro de Coluna <ChevronDown className="ml-2 h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -310,7 +344,7 @@ export default function ListTicketPage() {
                             column.toggleVisibility(!!value)
                           }
                         >
-                          {column.id}
+                           {column.id}
                         </DropdownMenuCheckboxItem>
                       );
                     })}
@@ -370,7 +404,8 @@ export default function ListTicketPage() {
             <div className="flex items-center justify-end space-x-2 py-4">
               <div className="flex-1 text-sm text-muted-foreground text-verdeclaro">
                 {table.getFilteredSelectedRowModel().rows.length} de{" "}
-                {table.getFilteredRowModel().rows.length} linha(s) selecionada(s).
+                {table.getFilteredRowModel().rows.length} linha(s)
+                selecionada(s).
               </div>
               <div className="space-x-2">
                 <Button
