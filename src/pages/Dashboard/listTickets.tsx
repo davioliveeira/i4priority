@@ -220,7 +220,7 @@ export type Ticket = {
 };
 
 export default function ListTicketPage() {
-  // const info = useLoaderData() as any;
+  const info = useLoaderData() as any;
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -290,7 +290,7 @@ export default function ListTicketPage() {
             Minha Lista de Prioridade
           </CardTitle>
           <CardDescription>
-            Olá
+            Olá {info[0].role}
           </CardDescription>
         </CardHeader>
         <CardContent>
