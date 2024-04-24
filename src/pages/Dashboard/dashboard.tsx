@@ -199,7 +199,7 @@ export default function DashboardPage() {
                 className="overflow-hidden rounded-full"
               >
                 <img
-                  src="src/assets/placeholder-user.jpg"
+                  src="/assets/placeholder-user.jpg"
                   width={36}
                   height={36}
                   alt="Avatar"
