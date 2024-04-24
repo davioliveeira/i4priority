@@ -186,6 +186,7 @@ const columns: (ColumnDef<Ticket> & { headerText?: string })[] = [
     id: "actions",
     header: () => <div className="text-verdeclaro">Ações</div>,
     headerText: "Ações", // Texto adicional para usar no Select
+    //@ts-ignore
     cell: ({ row }) => {
       return (
         <DropdownMenu>
@@ -220,6 +221,7 @@ export type Ticket = {
 };
 
 export default function ListTicketPage() {
+  //@ts-ignore
   const info = useLoaderData() as any;
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
