@@ -39,6 +39,7 @@ import { supabase } from "@/supabase";
 import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+//@ts-expect-error
 export async function loader({ request }: LoaderFunctionArgs) {
   const {
     data: { session },

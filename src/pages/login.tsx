@@ -26,11 +26,6 @@ const errorMessagesI18nMap: Record<string, string> = {
   'Invalid login credentials': 'Credenciais Inválidas',
 }
 
-interface LoginFormInputs {
-  email: string;
-  password: string;
-}
-
 export default function LoginPage() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
