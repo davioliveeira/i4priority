@@ -18,7 +18,7 @@ export async function loader() {
     data: { session },
   } = await supabase.auth.getSession()
 
-  if (session) return redirect('/')
+  if (session) return redirect('/dashboard')
   return null
 }
 
@@ -42,7 +42,7 @@ export default function LoginPage() {
       email,
       password,
     })
-    if (!error) return navigate('/')
+    if (!error) return navigate('/dashboard')
     setStatus('error')
     setError(errorMessagesI18nMap[error.message] ?? 'Algo inesperado aconteceu. Tente novamente')
   }
@@ -84,7 +84,7 @@ export default function LoginPage() {
                     <Input
                       id="password"
                       type="password"
-                      placeholder="Sua Senha"
+                      placeholder="Senha"
                       value={password}
                       onChange={(event) => setPassword(event.currentTarget.value)}
                     />

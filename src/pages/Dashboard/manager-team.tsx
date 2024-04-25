@@ -10,20 +10,12 @@ export default function TeamPage() {
         {/* Grid */}
         <div className="grid lg:grid-cols-7 lg:gap-x-8 xl:gap-x-12 lg:items-center">
           <div className="lg:col-span-3">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-              Build Better Products
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-laranja">
+              Financeiro
             </h1>
             <p className="mt-3 text-xl text-muted-foreground">
-              Introducing a new way for your brand to reach the creative
-              community.
+              Equipe responsável pelos chamados relacionados ao módulo Financeiro do ERP i4Pro.
             </p>
-            <div className="mt-5 lg:mt-8 flex flex-col sm:items-center gap-2 sm:flex-row sm:gap-3">
-              <div className="w-full max-w-lg  lg:w-auto">
-                <Label className="sr-only">Search</Label>
-                <Input placeholder="Enter work email" type="email" />
-              </div>
-              <Button className="w-min">Request demo</Button>
-            </div>
             {/* Brands */}
             <div className="mt-6 lg:mt-12">
              
