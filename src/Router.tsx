@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './pages/home';
 import LoginPage from './pages/login';
 import RegisterPage from './pages/register';
-import DashboardPage, {loader as dashloader} from './pages/Dashboard/dashboard';
+import DashboardPage, {loader as dashloader, handleLogout as actionLogout} from './pages/Dashboard/dashboard';
 import TeamPage from './pages/Dashboard/manager-team';
 import ListTicketPage, {loader as listloader} from './pages/Dashboard/listTickets';
 import DashboardMainPage from './pages/Dashboard/root';
@@ -28,6 +28,7 @@ const router = createBrowserRouter([
       {
         index: true,
         loader: dashloader,
+        action: actionLogout, 
         element: <DashboardMainPage/>
       },
       {

@@ -25,30 +25,36 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import { LoaderFunctionArgs, Outlet, redirect } from "react-router-dom";
+import { LoaderFunctionArgs, Outlet, redirect, Form } from "react-router-dom";
 import { supabase } from "@/supabase";
 
 //@ts-ignore
 export async function loader({ request }: LoaderFunctionArgs) {
-  const { data: { session } } = await supabase.auth.getSession();
-  if(session){
-    const { data, error } = await supabase.from('profiles').select().eq('id', session.user.id)
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (session) {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select()
+      .eq("id", session.user.id);
     console.log(data);
-    if(error) throw new Error(error.message)
-    const role = data[0].role
-    if(role === "user") return redirect('/dashboard/lista-chamados')
-     return null;
+    if (error) throw new Error(error.message);
+    const role = data[0].role;
+    if (role === "user") return redirect("/dashboard/lista-chamados");
+    return null;
   }
-  return redirect('/login'); 
+  return redirect("/login");
 }
 
+export async function handleLogout() {
+  console.log("entrou");
+  const { error } = await supabase.auth.signOut();
+  if (!error) redirect("/login");
+  return null;
+}
 
 export default function DashboardPage() {
-  const handleLogout = async () => {
-    console.log('entrou')
-    const { error } = await supabase.auth.signOut()
-    if (!error) redirect('/login')
-  }
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -106,15 +112,23 @@ export default function DashboardPage() {
       </aside>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 justify-end">
-          <Button
-            size="sm"
-            variant="outline"
-            className=" text-white bg-laranja hover:bg-verdeclaro hover:text-white"
-            onClick={handleLogout}
-          >Sair</Button>
+          <div>
+          <Form method="post">
+            <Button
+            type="submit"
+              size="sm"
+              variant="outline"
+              className=" text-white bg-laranja hover:bg-verdeclaro hover:text-white"
+              onClick={handleLogout}
+            >
+              Sair
+            </Button>
+          </Form>
+          </div>
+          
         </header>
         <main className="flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0">
-          <Outlet/>
+          <Outlet />
         </main>
       </div>
     </div>

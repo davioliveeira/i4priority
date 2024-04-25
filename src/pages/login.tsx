@@ -48,70 +48,76 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-      <div className="flex items-center justify-center py-12">
-        <div className="mx-auto grid w-[350px] gap-6">
-          <Card className="mx-auto max-w-sm w-96 h-fit">
-            <CardHeader className="text-center">
-              <CardTitle className="text-3xl font-extrabold font-gelion text-verdeclaro">
-                Login
-              </CardTitle>
-              <CardDescription className="text-laranja font-extralight font-gelion">
-                I4pro Priority
-              </CardDescription>
-            </CardHeader>
-            <form onSubmit={handleSubmit} noValidate>
-              <CardContent>
-                <div className="grid gap-4">
-                  <div className="grid gap-2">
-                    <Label htmlFor="email" className="text-verdeclaro">
-                      Email
-                    </Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="seuemail@i4pro.com.br"
-                      value={email}
-                      onChange={(event) => setEmail(event.currentTarget.value)}
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <div className="flex items-center">
-                      <Label htmlFor="password" className="text-verdeclaro">
-                        Senha
-                      </Label>
-                    </div>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="Senha"
-                      value={password}
-                      onChange={(event) => setPassword(event.currentTarget.value)}
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    className="w-full bg-laranja hover:bg-verdeclaro"
-                    disabled={status === 'loading'}
-                  >
-                    {status === 'loading' ? <Spinner /> : 'Entrar'}
-                  </Button>
-                  {error && <div className="text-sm text-red-500 text-center w-full">{error}</div>}
+    <div className="flex flex-col lg:flex-row min-h-screen">
+    <div className="flex flex-grow items-center justify-center p-12">
+      <div className="w-full max-w-md">
+        <Card className="h-fit">
+          <CardHeader className="text-center">
+            <CardTitle className="text-3xl font-extrabold text-verdeclaro">
+              Login
+            </CardTitle>
+            <CardDescription className="text-laranja font-extralight">
+              I4pro Priority
+            </CardDescription>
+          </CardHeader>
+          <form onSubmit={handleSubmit} noValidate>
+            <CardContent>
+              <div className="grid gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="email" className="text-verdeclaro">
+                    Email
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="seuemail@i4pro.com.br"
+                    value={email}
+                    onChange={(e) => setEmail(e.currentTarget.value)}
+                  />
                 </div>
-              </CardContent>
-            </form>
-          </Card>
-        </div>
-      </div>
-      <div className="hidden bg-muted lg:block">
-        <img
-          src="/assets/about.jpeg"
-          alt="Image"
-          width="1920"
-          height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
+                <div className="grid gap-2">
+                  <Label htmlFor="password" className="text-verdeclaro">
+                    Senha
+                  </Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.currentTarget.value)}
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full bg-laranja hover:bg-verdeclaro"
+                  disabled={status === 'loading'}
+                >
+                  {status === 'loading' ? <Spinner /> : 'Entrar'}
+                </Button>
+                {error && <div className="text-sm text-red-500 text-center w-full">{error}</div>}
+              </div>
+              <div className="mt-4 text-center text-sm">
+                  Não possui uma conta?{" "}
+                  <a
+                    href="/register"
+                    className="underline text-verdeclaro hover:text-laranja"
+                  >
+                    Inscreva-se
+                  </a>
+                </div>
+            </CardContent>
+          </form>
+        </Card>
       </div>
     </div>
-  );
+    {/* Imagem somente visível em telas lg e maiores */}
+    <div className="hidden lg:flex lg:flex-1 bg-muted">
+      <img
+        src="/assets/about.jpeg"
+        alt="Image"
+        className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+      />
+    </div>
+  </div>
+);
 }
