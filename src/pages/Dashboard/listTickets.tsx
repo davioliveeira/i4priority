@@ -295,7 +295,7 @@ export default function ListTicketPage() {
         </CardHeader>
         <CardContent>
           <div className="w-full">
-            <div className="flex items-center py-4">
+            <div className="flex items-center py-4 gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -303,7 +303,7 @@ export default function ListTicketPage() {
                     size="icon"
                     className="border-laranja text-laranja hover:text-verdeclaro hover:border-verdeclaro"
                   >
-                    <ChevronDown className="h-4 w-4" />
+                    <ChevronDown className="h-5 w-5" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

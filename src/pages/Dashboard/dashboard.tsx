@@ -1,8 +1,10 @@
 import {
   LineChart,
-  Settings,
   Users2,
   Tag,
+  Gauge,
+  PanelLeft,
+  LogOut
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +15,7 @@ import {
 } from "@/components/ui/tooltip";
 import { LoaderFunctionArgs, Outlet, redirect, Form } from "react-router-dom";
 import { supabase } from "@/supabase";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 //@ts-ignore
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -77,27 +80,98 @@ export default function DashboardPage() {
               </TooltipTrigger>
               <TooltipContent side="right">Time</TooltipContent>
             </Tooltip>
+            
           </TooltipProvider>
+          
         </nav>
         <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <a
-                  href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+                <Form method="post">
+                <Button
+                variant="outline"
+                size="icon"
+                className="border-none text-laranja hover:text-verdeclaro"
+                onClick={handleLogout}
                 >
-                  <Settings className="h-5 w-5" />
-                  <span className="sr-only">Configurações</span>
-                </a>
+                  <LogOut/>
+                </Button>
+                </Form>
               </TooltipTrigger>
-              <TooltipContent side="right">Configurações</TooltipContent>
+              <TooltipContent side="right">Sair</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </nav>
+        
       </aside>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 justify-end">
+      <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button size="icon" variant="outline" className="sm:hidden">
+                <PanelLeft className="h-5 w-5" />
+                <span className="sr-only">Toggle Menu</span>
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent side="left" className="sm:max-w-xs">
+              
+              <nav className="grid gap-6 text-lg font-medium">
+                <a
+                  href="/dashboard"
+                  className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-laranja text-lg font-semibold text-primary-foreground md:text-base"
+                >
+                  <Tag className="h-5 w-5 transition-all group-hover:scale-110" />
+                  <span className="sr-only">I4pro Inc</span>
+                </a>
+                <a
+                  href="/dashboard"
+                  className="flex items-center gap-4 px-2.5 text-foreground hover:text-foreground"
+                >
+                  <Gauge className="h-5 w-5 transition-all group-hover:bg-laranja" />
+                  Dashboard
+                </a>
+                <a
+                  href="/dashboard/lista-chamados"
+                  className="flex items-center gap-4 px-2.5 text-foreground"
+                >
+                  <LineChart className="h-5 w-5" />
+                  Indicadores
+                </a>
+                <a
+                  href="/dashboard/manager-team"
+                  className="flex items-center gap-4 px-2.5 text-foreground hover:text-foreground"
+                >
+                  <Users2 className="h-5 w-5" />
+                  Time
+                </a>
+              
+              </nav>
+              <Form method="post">
+              <Button
+                variant="outline"
+                size="lg"
+                className=" w-full bg-laranja text-white hover:text-white hover:bg-verdeclaro text-lg align-bottom mt-[650px] "
+                onClick={handleLogout}
+                >
+                  Sair
+                </Button>
+                </Form>
+            </SheetContent>
+          </Sheet>
+          
+        </header>
+
+        <main className="flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+}
+
+{/* <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 justify-end">
           <div>
           <Form method="post">
             <Button
@@ -110,13 +184,4 @@ export default function DashboardPage() {
               Sair
             </Button>
           </Form>
-          </div>
-          
-        </header>
-        <main className="flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0">
-          <Outlet />
-        </main>
-      </div>
-    </div>
-  );
-}
+          </div> */}
